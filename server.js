@@ -1,10 +1,12 @@
 import express from 'express';
-import router from './routes';
+import startServer from './libs/boot';
+import injectRoutes from './routes';
+import injectMiddlewares from './libs/middlewares';
 
-const app = express();
-app.use(express.json({ limit: '100mb' }));
-app.use(router);
-// app.listen(process.env.PORT || 3100);
-app.listen(process.env.PORT || 5000);
+const server = express();
 
-export default app;
+injectMiddlewares(server);
+injectRoutes(server);
+startServer(server);
+
+export default server;
